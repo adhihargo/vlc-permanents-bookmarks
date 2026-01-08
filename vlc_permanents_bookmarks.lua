@@ -18,7 +18,7 @@ function descriptor()
         version = "1.0.1",
         author = "Bucchio",
         url = 'https://github.com/JacopoBucchioni/vlc-permanents-bookmarks',
-        shortdesc = "Bookmarks",
+        shortdesc = "&Bookmarks",
         description = "Save bookmarks for your media files and store them permanently.",
         capabilities = {"menu", "input-listener"}
     }
@@ -362,15 +362,15 @@ function main_dialog()
     dialog_UI = vlc.dialog(dialog_title)
 
     -- ~ !important: Add button must be the first item that is created
-    dialog_UI:add_button("Add", addBookmark, 1, 1, 1, 1)
+    dialog_UI:add_button("&Add", addBookmark, 1, 1, 1, 1)
     -- bookmarks labels input box
     bookmarks_dialog['text_input'] = dialog_UI:add_text_input('Bookmark (' .. (#Bookmarks + 1) .. ')', 2, 1, 1, 1)
 
     -- buttons
-    dialog_UI:add_button("Go", goToBookmark, 1, 2, 1, 1)
-    dialog_UI:add_button("Rename", editBookmark, 1, 3, 1, 1)
-    dialog_UI:add_button("Remove", removeBookmark, 1, 4, 1, 1)
-    dialog_UI:add_button("Close", vlc.deactivate, 1, 5, 1, 1)
+    dialog_UI:add_button("&Go", goToBookmark, 1, 2, 1, 1)
+    dialog_UI:add_button("&Rename", editBookmark, 1, 3, 1, 1)
+    dialog_UI:add_button("Remo&ve", removeBookmark, 1, 4, 1, 1)
+    dialog_UI:add_button("&Close", vlc.deactivate, 1, 5, 1, 1)
     -- dialog_UI:add_button("Import", show_import_gui, 1, 10, 1, 1)
     -- dialog_UI:add_button("Export", show_export_gui, 1, 11, 1, 1)
 
