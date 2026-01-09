@@ -177,6 +177,27 @@ function getFileHash()
     return true
 end
 
+function getLastBookmarkIndex()
+    -- return #Bookmarks
+    local bm_count = #Bookmarks
+    local last_bookmark = nil
+    for k, _ in pairs(Bookmarks) do
+        last_bookmark = Bookmarks[k].label
+    end
+    
+    local last_index = nil
+    if last_bookmark ~= nil then
+        for k in string.gmatch(last_bookmark, "%((%d+)%)") do
+            last_index = tonumber(k)
+        end
+    end
+    
+    if last_index == nil then
+        return bm_count
+    end
+    return last_index
+end
+
 -- // system check and extension config
 function check_config()
     slash = package.config:sub(1, 1)
@@ -364,7 +385,8 @@ function main_dialog()
     -- ~ !important: Add button must be the first item that is created
     dialog_UI:add_button("&Add", addBookmark, 1, 1, 1, 1)
     -- bookmarks labels input box
-    bookmarks_dialog['text_input'] = dialog_UI:add_text_input('Bookmark (' .. (#Bookmarks + 1) .. ')', 2, 1, 1, 1)
+    local new_index = tostring(getLastBookmarkIndex() + 1)
+    bookmarks_dialog['text_input'] = dialog_UI:add_text_input('Bookmark (' .. new_index .. ')', 2, 1, 1, 1)
 
     -- buttons
     dialog_UI:add_button("&Go", goToBookmark, 1, 2, 1, 1)
@@ -445,7 +467,8 @@ function addBookmark()
             end
             table_save(Bookmarks, bookmarkFilePath)
             showBookmarks()
-            bookmarks_dialog['text_input']:set_text('Bookmark (' .. (#Bookmarks + 1) .. ')')
+            local new_index = tostring(getLastBookmarkIndex() + 1)
+            bookmarks_dialog['text_input']:set_text('Bookmark (' .. new_index .. ')')
         else
             bookmarks_dialog['footer_message']:set_text(setMessageStyle("Please enter your bookmark title"))
         end
